@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://cvdlq54b2l8uv"]
+
+[ext_resource type="Script" uid="uid://cywwyya2my3wg" path="res://src/scenes/TestArena/TestArena.cs" id="1_2nxnn"]
+[ext_resource type="PackedScene" uid="uid://8bfs6vb3qb8b" path="res://src/components/HealthComponent/HealthComponent.tscn" id="2_uttql"]
+[ext_resource type="PackedScene" uid="uid://toj2thi5scm4" path="res://src/components/HitboxComponent/HitboxComponent.tscn" id="3_2nxnn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_21tei"]
+size = Vector2(8, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wmqa5"]
+size = Vector2(10, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_47jt5"]
+size = Vector2(13, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vg0fw"]
+size = Vector2(12, 11)
+
+[node name="TestArena" type="Node2D" unique_id=2065435314]
+script = ExtResource("1_2nxnn")
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=636598197]
+position = Vector2(31, 5)
+
+[node name="HealthComponent" parent="Player" unique_id=1275839723 instance=ExtResource("2_uttql")]
+
+[node name="PlayerHitbox" type="CollisionShape2D" parent="Player" unique_id=521558715]
+shape = SubResource("RectangleShape2D_21tei")
+
+[node name="ColorRect" type="ColorRect" parent="Player" unique_id=1458736734]
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+color = Color(0, 1, 1, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="PlayerSwordHitbox" parent="Player" unique_id=1000478098 instance=ExtResource("3_2nxnn")]
+_damage = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/PlayerSwordHitbox" unique_id=642844439]
+position = Vector2(5, 0)
+shape = SubResource("RectangleShape2D_wmqa5")
+
+[node name="Enemy" type="CharacterBody2D" parent="." unique_id=421314985]
+position = Vector2(48, 0)
+
+[node name="HealthComponent" parent="Enemy" unique_id=2006709945 instance=ExtResource("2_uttql")]
+_maxHealth = 30
+
+[node name="EnemySwordHitbox" parent="Enemy" unique_id=1577377439 instance=ExtResource("3_2nxnn")]
+position = Vector2(-7, 0)
+_damage = 20
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/EnemySwordHitbox" unique_id=1996281453]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_47jt5")
+debug_color = Color(0.98039216, 0, 0, 0.41960785)
+
+[node name="ColorRect" type="ColorRect" parent="Enemy" unique_id=188675671]
+offset_left = -6.0
+offset_top = -5.0
+offset_right = 6.0
+offset_bottom = 6.0
+color = Color(1, 0.36516103, 0.53702486, 1)
+
+[node name="EnemyHitbox" type="CollisionShape2D" parent="Enemy" unique_id=1225420488]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_vg0fw")
+
+[editable path="Enemy/EnemySwordHitbox"]
