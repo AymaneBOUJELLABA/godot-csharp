@@ -1,0 +1,145 @@
+[gd_scene format=3 uid="uid://cvdlq54b2l8uv"]
+
+[ext_resource type="Script" uid="uid://cywwyya2my3wg" path="res://src/scenes/TestArena/TestArena.cs" id="1_b80iq"]
+[ext_resource type="PackedScene" uid="uid://8bfs6vb3qb8b" path="res://src/components/HealthComponent/health_component.tscn" id="2_kjeu1"]
+[ext_resource type="PackedScene" uid="uid://c07ccrf5sr7b3" path="res://src/components/MovementComponent/movement_component.tscn" id="3_wa8du"]
+[ext_resource type="PackedScene" uid="uid://toj2thi5scm4" path="res://src/components/HitboxComponent/hitbox_component.tscn" id="4_aev7b"]
+[ext_resource type="PackedScene" uid="uid://d0utyt2tksfhn" path="res://src/components/MovementComponent/PlayerInputComponent/player_input_component.tscn" id="5_rcj1l"]
+[ext_resource type="PackedScene" uid="uid://cik2s5s3byx0q" path="res://src/components/MovementComponent/PatrolAIInputComponent/patrol_ai_input_component.tscn" id="6_oyc1p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_21tei"]
+size = Vector2(8, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wmqa5"]
+size = Vector2(10, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_47jt5"]
+size = Vector2(13.5, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vg0fw"]
+size = Vector2(12, 11)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_kjeu1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0nvr6"]
+size = Vector2(4, 93)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_b80iq"]
+
+[node name="TestArena" type="Node2D" unique_id=2065435314]
+script = ExtResource("1_b80iq")
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=636598197]
+position = Vector2(97, 73)
+collision_mask = 4
+
+[node name="HealthComponent" parent="Player" unique_id=1275839723 instance=ExtResource("2_kjeu1")]
+
+[node name="MovementComponent" parent="Player" unique_id=1082385542 instance=ExtResource("3_wa8du")]
+_defaultSpeed = 30.0
+_dashSpeed = 3.0
+
+[node name="PlayerHitbox" type="CollisionShape2D" parent="Player" unique_id=521558715]
+shape = SubResource("RectangleShape2D_21tei")
+
+[node name="ColorRect" type="ColorRect" parent="Player" unique_id=1458736734]
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+color = Color(0, 1, 1, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="PlayerSwordHitbox" parent="Player" unique_id=1000478098 instance=ExtResource("4_aev7b")]
+collision_layer = 8
+collision_mask = 2
+_damage = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/PlayerSwordHitbox" unique_id=642844439]
+position = Vector2(5, 0)
+shape = SubResource("RectangleShape2D_wmqa5")
+
+[node name="ColorRect" type="ColorRect" parent="Player/PlayerSwordHitbox" unique_id=1748811609]
+offset_left = 1.0
+offset_top = -1.0
+offset_right = 10.0
+offset_bottom = 1.0
+
+[node name="PlayerInputComponent" parent="Player" unique_id=149484133 instance=ExtResource("5_rcj1l")]
+
+[node name="Enemy" type="CharacterBody2D" parent="." unique_id=421314985]
+position = Vector2(119, 60)
+collision_layer = 2
+collision_mask = 4
+
+[node name="HealthComponent" parent="Enemy" unique_id=2006709945 instance=ExtResource("2_kjeu1")]
+_maxHealth = 30
+
+[node name="EnemySwordHitbox" parent="Enemy" unique_id=1577377439 instance=ExtResource("4_aev7b")]
+position = Vector2(9.999985, 0)
+rotation = 3.137773
+collision_layer = 16
+_damage = 20
+
+[node name="ColorRect2" type="ColorRect" parent="Enemy/EnemySwordHitbox" unique_id=1767301637]
+offset_left = 3.9961367
+offset_top = 1.0152695
+offset_right = 10.746137
+offset_bottom = 3.0152695
+rotation = -3.1328614
+scale = Vector2(1.3199999, 1)
+color = Color(0.68988997, 0.26468313, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/EnemySwordHitbox" unique_id=1996281453]
+position = Vector2(0.75, 0)
+shape = SubResource("RectangleShape2D_47jt5")
+debug_color = Color(0.98039216, 0, 0, 0.41960785)
+
+[node name="ColorRect" type="ColorRect" parent="Enemy" unique_id=188675671]
+offset_left = -6.0
+offset_top = -5.0
+offset_right = 6.0
+offset_bottom = 6.0
+color = Color(1, 0.36516103, 0.53702486, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="EnemyHitbox" type="CollisionShape2D" parent="Enemy" unique_id=1225420488]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_vg0fw")
+
+[node name="MovementComponent" parent="Enemy" unique_id=831621169 instance=ExtResource("3_wa8du")]
+
+[node name="PatrolAiInputScene" parent="Enemy" unique_id=2136028369 node_paths=PackedStringArray("_rayCast2d") instance=ExtResource("6_oyc1p")]
+_rayCast2d = NodePath("../RayCast2D")
+
+[node name="RayCast2D" type="RayCast2D" parent="Enemy" unique_id=1154201084]
+use_parent_material = true
+position = Vector2(4, 0)
+target_position = Vector2(7, 0)
+collision_mask = 5
+hit_from_inside = true
+
+[node name="Wall" type="StaticBody2D" parent="." unique_id=392404539]
+modulate = Color(0.7121122, 0, 0.3102366, 1)
+position = Vector2(80, 73)
+collision_layer = 4
+collision_mask = 3
+physics_material_override = SubResource("PhysicsMaterial_kjeu1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall" unique_id=1123480207]
+position = Vector2(70, -10.5)
+shape = SubResource("RectangleShape2D_0nvr6")
+
+[node name="Wall2" type="StaticBody2D" parent="." unique_id=1629861561]
+modulate = Color(0.22352941, 0.18039216, 1, 1)
+position = Vector2(80, 73)
+collision_layer = 4
+collision_mask = 3
+physics_material_override = SubResource("PhysicsMaterial_b80iq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall2" unique_id=1792814117]
+position = Vector2(-64, -9)
+shape = SubResource("RectangleShape2D_0nvr6")
+
+[editable path="Enemy/EnemySwordHitbox"]
