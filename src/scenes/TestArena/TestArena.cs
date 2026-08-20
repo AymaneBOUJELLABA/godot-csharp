@@ -14,9 +14,12 @@ public partial class TestArena : Node2D
 
         enemyHealth.HealthValueChanged += OnEnemyHealthChanged;
         enemyHealth.HealthReachedZero += OnEnemyDied;
+
+        GD.Print("Scene loaded");
+        GD.Print($"{playerHealth.GetCurrentHealth()} / {playerHealth.GetMaxHealth()}");
     }
 
-    private void OnPlayerHealthChanged(int current, int max)
+    private void OnPlayerHealthChanged(float current, float max)
     {
         GD.Print($"Player health: {current}/{max}");
     }
@@ -26,7 +29,7 @@ public partial class TestArena : Node2D
         GD.Print("Player died!");
     }
 
-    private void OnEnemyHealthChanged(int current, int max)
+    private void OnEnemyHealthChanged(float current, float max)
     {
         GD.Print($"Enemy health: {current}/{max}");
     }

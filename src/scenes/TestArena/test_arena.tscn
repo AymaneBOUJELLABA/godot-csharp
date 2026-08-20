@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://toj2thi5scm4" path="res://src/components/HitboxComponent/hitbox_component.tscn" id="4_aev7b"]
 [ext_resource type="PackedScene" uid="uid://d0utyt2tksfhn" path="res://src/components/MovementComponent/PlayerInputComponent/player_input_component.tscn" id="5_rcj1l"]
 [ext_resource type="PackedScene" uid="uid://cik2s5s3byx0q" path="res://src/components/MovementComponent/PatrolAIInputComponent/patrol_ai_input_component.tscn" id="6_oyc1p"]
+[ext_resource type="PackedScene" uid="uid://dek28nxt7mbot" path="res://src/UI/HealthBar/health_bar.tscn" id="7_kjeu1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_21tei"]
 size = Vector2(8, 8)
@@ -28,6 +29,11 @@ size = Vector2(4, 93)
 
 [node name="TestArena" type="Node2D" unique_id=2065435314]
 script = ExtResource("1_b80iq")
+
+[node name="UI" type="Node" parent="." unique_id=555345242]
+
+[node name="HealthBar" parent="UI" unique_id=1007938021 node_paths=PackedStringArray("_healthComponent") instance=ExtResource("7_kjeu1")]
+_healthComponent = NodePath("../../Player/HealthComponent")
 
 [node name="Player" type="CharacterBody2D" parent="." unique_id=636598197]
 position = Vector2(97, 73)
@@ -68,12 +74,11 @@ offset_bottom = 1.0
 [node name="PlayerInputComponent" parent="Player" unique_id=149484133 instance=ExtResource("5_rcj1l")]
 
 [node name="Enemy" type="CharacterBody2D" parent="." unique_id=421314985]
-position = Vector2(119, 60)
+position = Vector2(123, 95)
 collision_layer = 2
 collision_mask = 4
 
 [node name="HealthComponent" parent="Enemy" unique_id=2006709945 instance=ExtResource("2_kjeu1")]
-_maxHealth = 30
 
 [node name="EnemySwordHitbox" parent="Enemy" unique_id=1577377439 instance=ExtResource("4_aev7b")]
 position = Vector2(9.999985, 0)
@@ -119,6 +124,9 @@ position = Vector2(4, 0)
 target_position = Vector2(7, 0)
 collision_mask = 5
 hit_from_inside = true
+
+[node name="HealthBar" parent="Enemy" unique_id=212587916 node_paths=PackedStringArray("_healthComponent") instance=ExtResource("7_kjeu1")]
+_healthComponent = NodePath("../HealthComponent")
 
 [node name="Wall" type="StaticBody2D" parent="." unique_id=392404539]
 modulate = Color(0.7121122, 0, 0.3102366, 1)

@@ -53,7 +53,7 @@ public partial class MovementComponent : Node
         this._parentObject = GetParent<CharacterBody2D>();
     }
 
-    public override async void _PhysicsProcess(double delta)
+    public override void _PhysicsProcess(double delta)
     {
         if (this._currentSpeed == 0)
         {
